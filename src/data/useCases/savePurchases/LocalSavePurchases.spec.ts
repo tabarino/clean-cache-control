@@ -2,6 +2,7 @@ import { ICacheStore } from "@/data/protocols/cache";
 import { LocalSavePurchases } from "@/data/useCases";
 
 class CacheStoreSpy implements ICacheStore {
+  insertCallsCount = 0;
   deleteCallsCount = 0;
   key!: string;
 
@@ -31,8 +32,18 @@ describe("LocalSavePurchases", () => {
 
   test("Should delete old cache on Save", async () => {
     const { sut, cacheStore } = makeSut();
-    sut.save();
+    await sut.save();
     expect(cacheStore.deleteCallsCount).toBe(1);
     expect(cacheStore.key).toBe('purchases');
+  });
+
+  test("Should not insert new cache if delete fails", async () => {
+    const { sut, cacheStore } = makeSut();
+    jest.spyOn(cacheStore, 'delete').mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const result = sut.save();
+    expect(cacheStore.insertCallsCount).toBe(0);
+    expect(result).rejects.toThrow();
   });
 });
