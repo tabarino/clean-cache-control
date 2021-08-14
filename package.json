@@ -19,8 +19,10 @@
   },
   "homepage": "https://github.com/tabarino/clean-cache-control#readme",
   "devDependencies": {
+    "@types/faker": "^5.5.8",
     "@types/jest": "^27.0.0",
     "@types/node": "^16.4.14",
+    "faker": "^5.5.3",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
     "ts-jest": "^27.0.4",
