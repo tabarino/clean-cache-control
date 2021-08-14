@@ -1,6 +1,6 @@
 import { ICacheStore } from "@/data/protocols/cache";
 import { LocalSavePurchases } from "@/data/useCases";
-import { SavePurchases } from "@/domain";
+import { SavePurchases } from "@/domain/useCases";
 
 class CacheStoreSpy implements ICacheStore {
   insertCallsCount = 0;
