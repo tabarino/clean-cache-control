@@ -1,7 +1,7 @@
 import { Purchase } from '@/domain/models';
 
 export interface ILoadPurchases {
-  loadAll: () => Array<LoadPurchases.Result>;
+  loadAll: () => Promise<Array<LoadPurchases.Result>>;
 }
 
 export namespace LoadPurchases {

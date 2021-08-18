@@ -1,7 +1,7 @@
 import { ICacheStore } from "@/data/protocols/cache";
-import { ISavePurchases, SavePurchases } from "@/domain/useCases";
+import { ILoadPurchases, ISavePurchases, SavePurchases, LoadPurchases } from "@/domain/useCases";
 
-export class LocalPurchases implements ISavePurchases {
+export class LocalPurchases implements ILoadPurchases, ISavePurchases {
   private readonly key = 'purchases';
 
   constructor(
@@ -9,8 +9,14 @@ export class LocalPurchases implements ISavePurchases {
     private readonly timestamp: Date
   ) {}
 
-  async loadAll(): Promise<void> {
-    this.cacheStore.fetch(this.key);
+  async loadAll(): Promise<Array<LoadPurchases.Result>> {
+    try {
+      this.cacheStore.fetch(this.key);
+      return [];
+    } catch (error) {
+      this.cacheStore.delete(this.key);
+      return [];
+    }
   }
 
   async save(purchases: Array<SavePurchases.Params>): Promise<void> {
