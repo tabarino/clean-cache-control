@@ -15,12 +15,12 @@ export class LocalPurchases implements ILoadPurchases, ISavePurchases {
       const maxAge = new Date(cache.timestamp);
       maxAge.setDate(maxAge.getDate() + 3);
 
-      if (maxAge < this.currentDate) {
+      if (maxAge <= this.currentDate) {
         throw new Error();
       }
 
       return cache.value;
-      
+
     } catch (error) {
       this.cacheStore.delete(this.key);
       return [];
