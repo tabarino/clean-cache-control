@@ -22,7 +22,6 @@ export class LocalPurchases implements ILoadPurchases, ISavePurchases {
       const cache = this.cacheStore.fetch(this.key);
 
       if (!CachePolicy.validate(cache.timestamp, this.currentDate)) {
-        this.cacheStore.delete(this.key);
         return [];
       }
 
