@@ -9,6 +9,14 @@ export class LocalPurchases implements ILoadPurchases, ISavePurchases {
     private readonly currentDate: Date
   ) {}
 
+  validate(): void {
+    try {
+      this.cacheStore.fetch(this.key);
+    } catch (error) {
+      this.cacheStore.delete(this.key);
+    }
+  }
+
   async loadAll(): Promise<Array<LoadPurchases.Result>> {
     try {
       const cache = this.cacheStore.fetch(this.key);
